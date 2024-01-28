@@ -34,10 +34,8 @@ def db():
 @pytest.fixture(scope="module")
 def client(db):
     # Dependency override
-
     def override_get_db():
         try:
-
             yield db
         finally:
             db.close()

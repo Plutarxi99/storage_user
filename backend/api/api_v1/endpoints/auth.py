@@ -1,20 +1,15 @@
-from typing import Annotated
-
-from jose import jwt
 from sqlalchemy.orm import Session
 
 from backend.exceptions import ErrorResponseModel
 from backend.schemas.auth import LoginModel
-from backend.schemas.error import ErrorResponseSchema
+
 from backend.schemas.user import CurrentUserResponseModel
 from backend.api.deps import authenticate_user, get_db
-from fastapi import APIRouter, Depends, HTTPException, Request, Response
+from fastapi import APIRouter, Depends, Response
 from datetime import timedelta
-from fastapi.security import OAuth2PasswordRequestForm
-from starlette import status
+
 from backend.core.config import settings
 from backend.core.security import create_access_token
-from backend.schemas.token import Token
 
 router = APIRouter()
 

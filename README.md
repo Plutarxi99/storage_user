@@ -53,6 +53,8 @@
 * Создать секретный ключ:
   <pre><code>openssl rand -hex 32</code></pre>
 
+* Создать первого пользователя в сервеси. Перейти в файл storage_user/backend/app:backend_pre_start.py. И исполнить его:
+
 
 </details>
 

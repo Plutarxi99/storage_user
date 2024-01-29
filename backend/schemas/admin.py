@@ -1,4 +1,5 @@
-from pydantic import BaseModel, EmailStr
+import phonenumbers
+from pydantic import BaseModel, EmailStr, field_validator
 
 
 # схемы для ответов и получения данных
@@ -14,6 +15,17 @@ class BasePrivate(BaseModel):
     additional_info: str | None = None
     is_admin: bool
     is_active: bool
+
+    @field_validator('phone')
+    @classmethod
+    def check_phone(cls, v: str) -> str:
+        try:
+            if v[0] == "+":
+                int(v[1:])
+            phonenumbers.parse(v, None)
+            return v
+        except:
+            raise ValueError(f'Не правильно набран номер {v}')
 
     class Config:
         orm_mode = True

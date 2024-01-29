@@ -1,13 +1,9 @@
-from typing import Annotated, Any
-
-from fastapi import Depends
-from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session
 
 from backend.core.security import get_password_hash
 from backend.models import User
 from backend.schemas.admin import PrivateCreateUserModel
-from backend.schemas.user import UserSchema, UpdateUserModel
+
 
 
 def get_user_on_id(

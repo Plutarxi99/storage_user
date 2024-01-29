@@ -12,15 +12,24 @@ from backend.exceptions import ErrorResponseModel
 from backend.schemas.token import TokenData
 from backend.schemas.user import UserSchema
 
-# oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 oauth2_scheme = OAuth2PasswordBearerWithCookie()
 
 
 def get_db(request: Request):
+    """
+    Получение подключение к базе данных
+    :return: сессия подкючение к базе данных
+    """
     return request.state.db
 
 
 async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], db: Session = Depends(get_db)):
+    """
+    Функция для чтения полученного токена и возвращение ошибки
+    :param token: bearer token пользователя
+    :param db: подключение к базе данных
+    :return: возвращает пользователя
+    """
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
@@ -51,12 +60,24 @@ async def get_current_active_user(
 async def get_current_admin_user(
         current_user: Annotated[UserSchema, Depends(get_current_user)]
 ):
+    """
+    Проверка пользователя является ли он админом сервиса
+    :param current_user: пользователь, который делает запрос
+    :return: пользователя, иначе ошибка
+    """
     if not current_user.is_admin:
-        raise ErrorResponseModel(code=403, message="вы не админ")
+        raise ErrorResponseModel(code=403, message="Вы не являетесь админом сервиса")
     return current_user
 
 
 def authenticate_user(db: Session, email: str, password: str):
+    """
+    Проверка вхождения пользователя. Проверка пароля и сущетсвет ли такой пользователя
+    :param db: подключение к базе данных
+    :param email: email вводимым пользователем
+    :param password: пароль вводимым пользователем
+    :return: возвращает пользователя
+    """
     user = get_user(db=db, email=email)
     if not user:
         return False

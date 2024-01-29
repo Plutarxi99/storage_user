@@ -2,7 +2,7 @@ from typing import List, Dict
 
 from pydantic import BaseModel
 
-
+# схемы для ответов и получения данных
 class UserBase(BaseModel):
     email: str
     # email: EmailStr

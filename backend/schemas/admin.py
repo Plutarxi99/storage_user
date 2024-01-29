@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-
+# схемы для ответов и получения данных
 class PrivateDetailUserResponseModel(BaseModel):
     id: int
     first_name: str | None = None

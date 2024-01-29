@@ -1,7 +1,7 @@
 from backend.schemas.error import ErrorResponseSchema
 from backend.schemas.user import CurrentUserResponseModel, UpdateUserResponseModel
 
-
+# Дополнительные ответы для отображения в openapi
 def responses_error(
         code: int, message: str
 ):

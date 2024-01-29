@@ -16,7 +16,9 @@ from backend.schemas.admin import PrivateDetailUserResponseModel, PrivateCreateU
 from backend.schemas.user import UserSchema, UsersListElementModel
 
 router = APIRouter(
-    dependencies=[Depends(get_current_admin_user)],
+    dependencies=[
+        Depends(get_current_admin_user)
+    ],
     responses={
         **base_response_admin
     }

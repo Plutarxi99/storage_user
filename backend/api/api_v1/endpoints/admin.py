@@ -8,6 +8,7 @@ from starlette import status
 from backend.api.deps import get_db, get_current_admin_user
 from backend.crud.base import CRUDBase
 from backend.crud.users import get_user, create_user, get_user_on_id, get_users_all
+from backend.exceptions import ErrorResponseModel
 from backend.models import User
 from backend.pagination.page_admin import AdminAPIPage
 from backend.schemas.add_responses.admin import base_response_admin
@@ -122,6 +123,10 @@ async def change_data_user(
     :return:
     """
     user_for_update = get_user_on_id(db=db, user_id=pk)
+    email_in_bd = user_for_update.email
+    email_for_update = update_user_data.email
+    if email_in_bd == email_for_update:
+        raise ErrorResponseModel(code=400, message="Такой email уже есть в базе данных")
     user = CRUDBase(model=User)
     user.update(db=db, obj_in=update_user_data, db_obj=user_for_update)
     user_u = get_user_on_id(db=db, user_id=pk)

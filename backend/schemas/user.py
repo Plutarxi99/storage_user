@@ -1,5 +1,9 @@
+from datetime import date
+
 import phonenumbers
 from pydantic import BaseModel, EmailStr, field_validator
+
+from backend.validators import PhoneNumberUser
 
 
 # схемы для ответов и получения данных
@@ -12,8 +16,8 @@ class UserCreate(UserBase):
 
 
 class UserAddDataBase(UserBase):
-    first_name: str | None = None
-    last_name: str | None = None
+    first_name: str | None = "Луций"
+    last_name: str | None = "Местрий"
 
     class Config:
         orm_mode = True
@@ -21,23 +25,10 @@ class UserAddDataBase(UserBase):
 
 
 class UserOtherDataBase(UserAddDataBase):
-    other_name: str | None = None
+    other_name: str | None = "Плутарх"
     email: EmailStr
-    phone: str | None = None
-    birthday: str | None = None
-
-    # валидация номера телефона
-    @field_validator('phone')
-    @classmethod
-    def check_phone(cls, v: str) -> str:
-        try:
-            # если номер начинается с "+", то переходит к следующему условию
-            if v[0] == "+":
-                int(v[1:])
-            phonenumbers.parse(v, None)
-            return v
-        except:
-            raise ValueError(f'Не правильно набран номер{v}')
+    phone: PhoneNumberUser | None = "+79123456789"
+    birthday: date | None = "2007-11-07"
 
     class Config:
         orm_mode = True

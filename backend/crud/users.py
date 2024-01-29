@@ -16,7 +16,7 @@ def get_user_on_id(
     :param db: подключении к базе данных
     :return: пользователя из базы данных
     """
-    user = db.query(User).filter(User.id == user_id).first()
+    user = db.query(User).filter(User.id==user_id).first()
     return user
 
 

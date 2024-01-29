@@ -1,31 +1,27 @@
+from datetime import date
+
 import phonenumbers
+from fastapi.exceptions import ResponseValidationError
+from phonenumbers import NumberParseException
 from pydantic import BaseModel, EmailStr, field_validator
+
+from backend.exceptions import ErrorResponseModel
+from backend.validators import PhoneNumberUser
 
 
 # схемы для ответов и получения данных
 
 class BasePrivate(BaseModel):
-    first_name: str | None = None
-    last_name: str | None = None
-    other_name: str | None = None
+    first_name: str | None = "Луций"
+    last_name: str | None = "Местрий"
+    other_name: str | None = "Плутарх"
     email: EmailStr
-    phone: str | None = None
-    birthday: str | None = None
+    phone: PhoneNumberUser | None = "+79123456789"
+    birthday: date | None = "2007-11-07"
     city: str | None = None
     additional_info: str | None = None
     is_admin: bool
     is_active: bool
-
-    @field_validator('phone')
-    @classmethod
-    def check_phone(cls, v: str) -> str:
-        try:
-            if v[0] == "+":
-                int(v[1:])
-            phonenumbers.parse(v, None)
-            return v
-        except:
-            raise ValueError(f'Не правильно набран номер {v}')
 
     class Config:
         orm_mode = True
@@ -46,7 +42,5 @@ class PrivateCreateUserModel(BasePrivate):
 
 
 class PrivateUpdateUserModel(PrivateDetailUserResponseModel):
-    pass
-
     class Config:
         orm_mode = True

@@ -19,23 +19,18 @@ def test_change_data_current_user(
         "last_name": "string",
         "other_name": "string",
         "email": "test@test.ru",
-        "phone": "string",
-        "birthday": "string"
+        "phone": "+79527777777",
+        "birthday": "2022-02-02"
     }
     response = client.patch('/users/current', json=data, cookies=test_user_cookie)
     assert response.status_code == status.HTTP_200_OK
-    assert response.json() == {'id': 3, 'first_name': 'string', 'last_name': 'string', 'other_name': 'string',
-                               'email': 'test@test.ru', 'phone': 'string', 'birthday': 'string'}
+    assert response.json() == {'email': 'test@test.ru', 'first_name': 'string', 'last_name': 'string',
+                               'other_name': 'string', 'phone': '+79527777777', 'birthday': '2022-02-02', 'id': 3}
 
 
-# TODO: Не понятная причина не авторизованного пользователя
 def test_get_data_list_user(
         client: TestClient, test_user_token_cookie
 ):
-    data = {
-        "page": "1",
-        "size": "10"
-    }
     response = client.get('/users', cookies=test_user_token_cookie)
     print(response.json())
     assert response.status_code == status.HTTP_200_OK

@@ -2,7 +2,7 @@ from sqlalchemy import Boolean, Column, Integer, String
 
 from backend.db.session import Base
 
-
+# модели для создания таблице в базе данных
 class User(Base):
     __tablename__ = 'users'
 

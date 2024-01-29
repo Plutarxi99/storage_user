@@ -1,14 +1,16 @@
+from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session
 from starlette.responses import JSONResponse
 
 from backend.exceptions import ErrorResponseModel
 from backend.schemas.add_responses.auth import responses_login
+from backend.schemas.add_responses.base import responses_error
 from backend.schemas.auth import LoginModel
 from backend.schemas.error import ErrorResponseSchema
 
 from backend.schemas.user import CurrentUserResponseModel
 from backend.api.deps import authenticate_user, get_db
-from fastapi import APIRouter, Depends, Response, HTTPException
+from fastapi import APIRouter, Depends, Response, HTTPException, Request
 from datetime import timedelta
 
 from backend.core.config import settings
@@ -34,15 +36,14 @@ async def login_user(
     Эндпоинт для входа существующего пользователя
     :param response: для установки токена для использования сервиса
     :param user: схема для входa пользователя
-    :param db:
-    :return:
+    :param db: получение подключения к сессии базе данных
+    :return: возвращает существующего пользователя
     """
     # для получения существующего пользователя
     user_in = authenticate_user(email=user.login, password=user.password, db=db)
     # проверка есть ли пользователь
     if not user_in:
-        # ответ если нет пользователя
-        return JSONResponse(status_code=400, content={"code": 400, "message": "Не существует такого пользователя"})
+        raise ErrorResponseModel(code=400, message="Такого пользователя не существует в системе")
     # установка времени протухания токена, создание и присваивания токена
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
@@ -65,5 +66,5 @@ async def logout_user(
     :return:
     """
     # удаление токена
-    response.delete_cookie(key="bearer")
+    response.delete_cookie(key=settings.COOKIE_NAME)
     return {"Выход": "Вы уже вышли из системы"}

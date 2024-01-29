@@ -5,7 +5,7 @@ from backend.crud.users import get_user
 from backend.db.session import SessionLocal
 from backend.models import User
 
-
+# TODO: создание в новой базе данных первого пользователя для управления ею
 def get_db_for_create_superuser():
     db = SessionLocal()
     db.begin()

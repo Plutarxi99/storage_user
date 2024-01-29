@@ -4,6 +4,8 @@ from sqlalchemy.orm import sessionmaker
 
 from backend.core.config import settings
 
+# О подключении к базе данных
+# создание ссылки и получение её из настроек приложения
 SQLALCHEMY_DATABASE_URL = settings.SQLALCHEMY_DATABASE_URI
 
 engine = create_engine(

@@ -43,7 +43,7 @@ async def login_user(
     user_in = authenticate_user(email=user.login, password=user.password, db=db)
     # проверка есть ли пользователь
     if not user_in:
-        raise ErrorResponseModel(code=400, message="Такого пользователя не существует в системе")
+        raise ErrorResponseModel(code=401, message="Такого пользователя не существует в системе")
     # установка времени протухания токена, создание и присваивания токена
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(

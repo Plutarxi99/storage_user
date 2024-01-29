@@ -7,7 +7,7 @@ def test_get_data_current_user(
 ):
     response = client.get('/users/current', cookies=test_user_cookie)
     assert response.status_code == status.HTTP_200_OK
-    assert response.json() == {'first_name': None, 'last_name': None, 'other_name': None, 'email': 'test@test.test',
+    assert response.json() == {'first_name': None, 'last_name': None, 'other_name': None, 'email': 'test@test.ru',
                                'phone': None, 'birthday': None, 'is_admin': True}
 
 
@@ -18,14 +18,14 @@ def test_change_data_current_user(
         "first_name": "string",
         "last_name": "string",
         "other_name": "string",
-        "email": "string",
+        "email": "test@test.ru",
         "phone": "string",
         "birthday": "string"
     }
     response = client.patch('/users/current', json=data, cookies=test_user_cookie)
     assert response.status_code == status.HTTP_200_OK
     assert response.json() == {'id': 3, 'first_name': 'string', 'last_name': 'string', 'other_name': 'string',
-                               'email': 'string', 'phone': 'string', 'birthday': 'string'}
+                               'email': 'test@test.ru', 'phone': 'string', 'birthday': 'string'}
 
 
 # TODO: Не понятная причина не авторизованного пользователя

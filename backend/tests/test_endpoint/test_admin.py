@@ -20,7 +20,7 @@ def test_add_user_in_db(
         "first_name": "string",
         "last_name": "string",
         "other_name": "string",
-        "email": "test_create112@test.test",
+        "email": "test_create@test.ru",
         "phone": "string",
         "birthday": "string",
         "city": "string",
@@ -30,7 +30,6 @@ def test_add_user_in_db(
         "is_active": True
     }
     response = client.post("/private/users", json=data, cookies=test_user_cookie)
-    print(response.json())
     assert response.status_code == status.HTTP_201_CREATED
 
 

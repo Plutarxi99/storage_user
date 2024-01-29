@@ -6,7 +6,6 @@ from backend.api.api_v1.api import api_router
 from backend.db.session import engine, SessionLocal
 from fastapi import FastAPI, Request, Response
 from backend.db.session import Base
-from fastapi.middleware.cors import CORSMiddleware
 
 from backend.exceptions import ErrorResponseModel
 from backend.schemas.error import ErrorResponseSchema
@@ -16,7 +15,6 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI()
 app.include_router(api_router)
 add_pagination(app)
-
 
 
 @app.middleware("http")

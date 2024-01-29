@@ -1,6 +1,5 @@
-from typing import List, Dict
-
-from pydantic import BaseModel, EmailStr
+import phonenumbers
+from pydantic import BaseModel, EmailStr, field_validator
 
 
 # схемы для ответов и получения данных
@@ -27,6 +26,19 @@ class UserOtherDataBase(UserAddDataBase):
     phone: str | None = None
     birthday: str | None = None
 
+    # валидация номера телефона
+    @field_validator('phone')
+    @classmethod
+    def check_phone(cls, v: str) -> str:
+        try:
+            # если номер начинается с "+", то переходит к следующему условию
+            if v[0] == "+":
+                int(v[1:])
+            phonenumbers.parse(v, None)
+            return v
+        except:
+            raise ValueError(f'Не правильно набран номер{v}')
+
     class Config:
         orm_mode = True
         from_attributes = True
@@ -52,7 +64,6 @@ class CurrentUserResponseModel(UserOtherDataBase):
 
 
 class UpdateUserModel(UserOtherDataBase):
-
     class Config:
         orm_mode = True
 

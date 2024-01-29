@@ -21,12 +21,12 @@ def test_fail_login_user(
         client: TestClient
 ):
     data = {
-        "login": "noregister@test.test",
+        "login": "noregister@test.ru",
         "password": "test"
     }
     response = client.post('/login', json=data)
     assert response.status_code == status.HTTP_401_UNAUTHORIZED
-    assert response.json() == 'Такого пользователя не существует'
+    assert response.json() == {'code': 401, 'message': 'Такого пользователя не существует в системе'}
 
 
 def test_logout_user(client):

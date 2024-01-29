@@ -31,7 +31,9 @@ def create_superuser(db):
         db.add(db_obj)
         db.commit()
         db.refresh(db_obj)
+        db.close()
 
 
 if __name__ == "__main__":
     create_superuser(db=get_db_for_create_superuser())
+    print("Суперпользователь создан")

@@ -1,12 +1,13 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
+
 
 # схемы для ответов и получения данных
-class PrivateDetailUserResponseModel(BaseModel):
-    id: int
+
+class BasePrivate(BaseModel):
     first_name: str | None = None
     last_name: str | None = None
     other_name: str | None = None
-    email: str
+    email: EmailStr
     phone: str | None = None
     birthday: str | None = None
     city: str | None = None
@@ -18,35 +19,22 @@ class PrivateDetailUserResponseModel(BaseModel):
         orm_mode = True
 
 
-class PrivateCreateUserModel(BaseModel):
-    first_name: str | None = None
-    last_name: str | None = None
-    other_name: str | None = None
-    email: str
-    phone: str | None = None
-    birthday: str | None = None
-    city: str | None = None
-    additional_info: str | None = None
-    is_admin: bool
+class PrivateDetailUserResponseModel(BasePrivate):
+    id: int
+
+    class Config:
+        orm_mode = True
+
+
+class PrivateCreateUserModel(BasePrivate):
     password: str
-    is_active: bool
 
     class Config:
         orm_mode = True
 
 
-class PrivateUpdateUserModel(BaseModel):
-    id: int
-    first_name: str | None = None
-    last_name: str | None = None
-    other_name: str | None = None
-    email: str
-    phone: str | None = None
-    birthday: str | None = None
-    city: str | None = None
-    additional_info: str | None = None
-    is_admin: bool
-    is_active: bool
+class PrivateUpdateUserModel(PrivateDetailUserResponseModel):
+    pass
 
     class Config:
         orm_mode = True

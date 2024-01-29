@@ -1,24 +1,39 @@
 from typing import List, Dict
 
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
+
 
 # схемы для ответов и получения данных
 class UserBase(BaseModel):
-    email: str
-    # email: EmailStr
+    email: EmailStr
 
 
 class UserCreate(UserBase):
     password: str
 
 
-class UserSchema(UserBase):
-    id: int
+class UserAddDataBase(UserBase):
     first_name: str | None = None
     last_name: str | None = None
+
+    class Config:
+        orm_mode = True
+        from_attributes = True
+
+
+class UserOtherDataBase(UserAddDataBase):
     other_name: str | None = None
+    email: EmailStr
     phone: str | None = None
     birthday: str | None = None
+
+    class Config:
+        orm_mode = True
+        from_attributes = True
+
+
+class UserSchema(UserOtherDataBase):
+    id: int
     city: str | None = None
     additional_info: str | None = None
     is_active: bool
@@ -29,49 +44,28 @@ class UserSchema(UserBase):
         from_attributes = True
 
 
-class CurrentUserResponseModel(BaseModel):
-    first_name: str | None = None
-    last_name: str | None = None
-    other_name: str | None = None
-    email: str
-    phone: str | None = None
-    birthday: str | None = None
+class CurrentUserResponseModel(UserOtherDataBase):
     is_admin: bool
 
     class Config:
         orm_mode = True
 
 
-class UpdateUserModel(BaseModel):
-    first_name: str | None = None
-    last_name: str | None = None
-    other_name: str | None = None
-    email: str
-    phone: str | None = None
-    birthday: str | None = None
+class UpdateUserModel(UserOtherDataBase):
 
     class Config:
         orm_mode = True
 
 
-class UpdateUserResponseModel(BaseModel):
+class UpdateUserResponseModel(UserOtherDataBase):
     id: int
-    first_name: str | None = None
-    last_name: str | None = None
-    other_name: str | None = None
-    email: str
-    phone: str | None = None
-    birthday: str | None = None
 
     class Config:
         orm_mode = True
 
 
-class UsersListElementModel(BaseModel):
+class UsersListElementModel(UserAddDataBase):
     id: int
-    first_name: str | None = None
-    last_name: str | None = None
-    email: str
 
     class Config:
         orm_mode = True

@@ -10,18 +10,23 @@ from backend.crud.base import CRUDBase
 from backend.crud.users import get_user, create_user, get_user_on_id, get_users_all
 from backend.models import User
 from backend.pagination.page_admin import AdminAPIPage
+from backend.schemas.add_responses.admin import base_response_admin
+from backend.schemas.add_responses.base import responses_error, responses_not_found_404
 from backend.schemas.admin import PrivateDetailUserResponseModel, PrivateCreateUserModel, PrivateUpdateUserModel
 from backend.schemas.user import UserSchema, UsersListElementModel
 
 router = APIRouter(
     dependencies=[Depends(get_current_admin_user)],
-                   )
+    responses={
+        **base_response_admin
+    }
+)
 
 
 @router.get(
     "/users",
     summary="Постраничное получение кратких данных обо всех пользователях",
-    response_model=AdminAPIPage[UsersListElementModel]
+    response_model=AdminAPIPage[UsersListElementModel],
 )
 async def get_list_data_user(
         db: Session = Depends(get_db),
@@ -32,7 +37,6 @@ async def get_list_data_user(
     """
     users = get_users_all(db=db)
     return paginate(users)
-
 
 
 @router.post(
@@ -58,7 +62,10 @@ async def add_user_in_db(
 @router.get(
     "/users/{pk}",
     summary="Детальное получение информации о пользователе",
-    response_model=PrivateDetailUserResponseModel
+    response_model=PrivateDetailUserResponseModel,
+    responses={
+        **responses_not_found_404
+    }
 )
 async def get_user_from_db(
         pk: int,
@@ -98,7 +105,10 @@ async def delete_user(
 @router.patch(
     "/users/{pk}",
     summary="Изменение информации о пользователе",
-    response_model=PrivateUpdateUserModel
+    response_model=PrivateUpdateUserModel,
+    responses={
+        **responses_not_found_404
+    }
 )
 async def change_data_user(
         pk: int,

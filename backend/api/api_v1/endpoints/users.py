@@ -1,9 +1,12 @@
 from typing import Annotated
 from sqlalchemy.orm import Session
+from starlette.responses import JSONResponse
+
 from backend.crud.base import CRUDBase
 from backend.crud.users import get_user, get_users_all
 from backend.models import User
 from backend.pagination.page_users import UserAPIPage
+from backend.schemas.add_responses.users import responses_update_current_user, responses_base_users
 from backend.schemas.auth import LoginModel
 from backend.schemas.user import UserSchema, CurrentUserResponseModel, UpdateUserModel, UpdateUserResponseModel, \
     UsersListElementModel
@@ -11,7 +14,10 @@ from backend.api.deps import get_db, get_current_user, get_current_active_user
 from fastapi import APIRouter, Depends, Body
 from fastapi_pagination import paginate
 
-router = APIRouter(dependencies=[Depends(get_current_active_user)])
+router = APIRouter(
+    dependencies=[Depends(get_current_active_user)],
+    responses={**responses_base_users}
+)
 
 
 @router.get(
@@ -28,13 +34,20 @@ async def get_data_current_user(
     :return:
     """
     user = get_user(db=db, email=current_user.email)
+    if not user:
+        return JSONResponse(
+            status_code=400, content={}
+        )
     return user
 
 
 @router.patch(
     "/current",
     summary='Изменение данных пользователя',
-    response_model=UpdateUserResponseModel
+    response_model=UpdateUserResponseModel,
+    responses={
+        **responses_update_current_user
+    }
 )
 async def change_data_current_user(
         update_user_data: Annotated[UpdateUserModel, Body()],

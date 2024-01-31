@@ -15,6 +15,8 @@
 </details>
 
 > [!IMPORTANT]
+> Надо объязаетельно выбрать папку backend выбрать Sources Root ![#1589F0](https://placehold.co/15x15/1589F0/1589F0.png)
+> 
 > Добавлен файл .env-sample (для использования надо привести к ввиду **<.env>**) с помощью, которого можно настроить работу проекта. В нем лежат настройки (далее идут примеры заполнения полей):
 <details>
 <summary>Настройки, которые надо установить для работы приложения</summary>
@@ -26,6 +28,7 @@
 |     **POSTGRES_USER**| USER_BD   |     название пользователя базы данных |
 |     **POSTGRES_PASSWORD**| PASSWORD_BD   |     пароль базы данных |
 |     **POSTGRES_SERVER**| HOST_BD   |     подключение к базе данных |
+|     **POSTGRES_DRIVER**| postgresql   |     типы подключение к базе данных PostgreSQL |
 |     **SUPERUSER_EMAIL**| email_superuser       |     установить почту суперюзера|
 |     **SUPERUSER_PASSWORD**| password_superuser       |     установить пароль суперюзера|
 |     **COOKIE_NAME**| bearer       |     название ключа cookie, который присвается пользователю при вхождение на сервис|

@@ -4,12 +4,11 @@ from fastapi.testclient import TestClient
 # Import the SQLAlchemy parts
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
-from sqlalchemy.ext.declarative import declarative_base
 
-from backend.api.deps import get_db
-from backend.db.session import Base
+from backend.src.operations.deps import get_db
+from backend.src.database import Base
 from .utils.user import get_test_user_token_cookie, get_cookie_test_user, create_user_for_test
-from ..main import app
+from backend.src.main import app
 
 SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
 

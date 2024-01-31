@@ -1,6 +1,7 @@
 from sqlalchemy import Boolean, Column, Integer, String
 
-from backend.db.session import Base
+from backend.src.database import Base
+
 
 # модели для создания таблице в базе данных
 class User(Base):
@@ -20,4 +21,3 @@ class User(Base):
     is_active = Column(Boolean, default=True)
     is_admin = Column(Boolean, default=False)
     # is_superuser = Column(Boolean, default=False)
-

@@ -1,11 +1,9 @@
 from sqlalchemy.orm import Session
 from fastapi.testclient import TestClient
 
-from backend.core.config import settings
-from backend.crud.users import create_user, get_user
-from backend.models import User
-
-from backend.schemas.admin import PrivateCreateUserModel
+from backend.src.core.config import settings
+from backend.src.apps.user.crud import create_user, get_user
+from backend.src.operations.models import User
 
 
 def create_user_for_test(db: Session):

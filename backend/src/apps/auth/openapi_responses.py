@@ -1,6 +1,4 @@
-from backend.schemas.add_responses.base import get_cur_user_resp_200, responses_error
-from backend.schemas.error import ErrorResponseSchema
-from backend.schemas.user import CurrentUserResponseModel
+from backend.src.exceptions.openapi_responses import get_cur_user_resp_200, responses_error
 
 # Дополнительные ответы для отображения в openapi
 

@@ -9,7 +9,7 @@ from backend.src.operations.deps import get_db, get_current_admin_user
 from backend.src.base.crud import CRUDBase
 from backend.src.apps.user.crud import get_user, create_user, get_user_on_id, get_users_all
 from backend.src.exceptions.model import ErrorResponseModel
-from backend.src.operations.models import User
+from backend.src.models import User
 from backend.src.apps.admin.pagination import AdminAPIPage
 from backend.src.apps.admin.openapi_responses import base_response_admin
 from backend.src.exceptions.openapi_responses import responses_not_found_404

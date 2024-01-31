@@ -1,8 +1,9 @@
 from sqlalchemy.orm import Session
 
 from backend.src.core.security import get_password_hash
-from backend.src.operations.models import User
+
 from backend.src.apps.admin.schemas import PrivateCreateUserModel
+from backend.src.models import User
 
 
 def get_user_on_id(

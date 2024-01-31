@@ -1,9 +1,8 @@
-from backend.src.core.config import settings
-from backend.src.core.security import get_password_hash
-
-from backend.src.apps.user import get_user
-from backend.src.database import SessionLocal
-from backend.src.operations.models import User
+from src.apps.user.crud import get_user
+from src.core.config import settings
+from src.core.security import get_password_hash
+from src.database import SessionLocal
+from src.models import User
 
 
 # TODO: создание в новой базе данных первого пользователя для управления ею

@@ -7,7 +7,7 @@ from backend.src.core.config import settings
 from backend.src.core.security import create_access_token
 from backend.src.base.crud import CRUDBase
 from backend.src.apps.user.crud import get_user, get_users_all
-from backend.src.operations.models import User
+from backend.src.models import User
 from backend.src.apps.user.pagination import UserAPIPage
 from backend.src.apps.user.openapi_responses import responses_update_current_user, responses_base_users
 from backend.src.apps.auth.schemas import LoginModel

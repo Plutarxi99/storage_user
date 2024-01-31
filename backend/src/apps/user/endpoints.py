@@ -3,27 +3,27 @@ from typing import Annotated
 from sqlalchemy.orm import Session
 from starlette.responses import JSONResponse
 
-from backend.core.config import settings
-from backend.core.security import create_access_token
-from backend.crud.base import CRUDBase
-from backend.crud.users import get_user, get_users_all
-from backend.models import User
-from backend.pagination.page_users import UserAPIPage
-from backend.schemas.add_responses.users import responses_update_current_user, responses_base_users
-from backend.schemas.auth import LoginModel
-from backend.schemas.user import UserSchema, CurrentUserResponseModel, UpdateUserModel, UpdateUserResponseModel, \
+from backend.src.core.config import settings
+from backend.src.core.security import create_access_token
+from backend.src.base.crud import CRUDBase
+from backend.src.apps.user.crud import get_user, get_users_all
+from backend.src.operations.models import User
+from backend.src.apps.user.pagination import UserAPIPage
+from backend.src.apps.user.openapi_responses import responses_update_current_user, responses_base_users
+from backend.src.apps.auth.schemas import LoginModel
+from backend.src.apps.user.schemas import CurrentUserResponseModel, UpdateUserModel, UpdateUserResponseModel, \
     UsersListElementModel
-from backend.api.deps import get_db, get_current_user, get_current_active_user
+from backend.src.operations.deps import get_db, get_current_user, get_current_active_user
 from fastapi import APIRouter, Depends, Body, Response
 from fastapi_pagination import paginate
 
-router = APIRouter(
+router_user = APIRouter(
     dependencies=[Depends(get_current_active_user)],
     responses={**responses_base_users}
 )
 
 
-@router.get(
+@router_user.get(
     "/current",
     summary='Получение данных о текущем пользователе',
     response_model=CurrentUserResponseModel
@@ -44,7 +44,7 @@ async def get_data_current_user(
     return user
 
 
-@router.patch(
+@router_user.patch(
     "/current",
     summary='Изменение данных пользователя',
     response_model=UpdateUserResponseModel,
@@ -75,7 +75,7 @@ async def change_data_current_user(
     return user_u
 
 
-@router.get(
+@router_user.get(
     "/",
     summary='Постраничное получение кратких данных обо всех пользователях',
     response_model=UserAPIPage[UsersListElementModel]

@@ -1,9 +1,10 @@
-from backend.core.config import settings
-from backend.core.security import get_password_hash
+from backend.src.core.config import settings
+from backend.src.core.security import get_password_hash
 
-from backend.crud.users import get_user
-from backend.db.session import SessionLocal
-from backend.models import User
+from backend.src.apps.user import get_user
+from backend.src.database import SessionLocal
+from backend.src.operations.models import User
+
 
 # TODO: создание в новой базе данных первого пользователя для управления ею
 def get_db_for_create_superuser():

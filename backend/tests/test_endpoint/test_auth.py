@@ -1,9 +1,5 @@
-from typing import Dict
-
 from starlette import status
 from starlette.testclient import TestClient
-
-from backend.core.config import settings
 
 
 def test_login_user(

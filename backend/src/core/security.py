@@ -5,12 +5,14 @@ from jose import jwt
 from passlib.context import CryptContext
 from starlette import status
 
-from backend.core.config import settings
+
 from typing import Optional
 
 from fastapi.exceptions import HTTPException
 
 from starlette.requests import Request
+
+from backend.src.core.config import settings
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 

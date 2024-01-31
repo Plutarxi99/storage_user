@@ -1,5 +1,5 @@
-from backend.schemas.error import ErrorResponseSchema
-from backend.schemas.user import CurrentUserResponseModel, UpdateUserResponseModel
+from backend.src.exceptions.schemas import ErrorResponseSchema
+from backend.src.apps.user.schemas import CurrentUserResponseModel, UpdateUserResponseModel
 
 # Дополнительные ответы для отображения в openapi
 def responses_error(

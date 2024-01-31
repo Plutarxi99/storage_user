@@ -1,26 +1,22 @@
-from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session
-from starlette.responses import JSONResponse
 
-from backend.exceptions import ErrorResponseModel
-from backend.schemas.add_responses.auth import responses_login
-from backend.schemas.add_responses.base import responses_error
-from backend.schemas.auth import LoginModel
-from backend.schemas.error import ErrorResponseSchema
+from backend.src.exceptions.model import ErrorResponseModel
+from backend.src.apps.auth.openapi_responses import responses_login
+from backend.src.apps.auth.schemas import LoginModel
 
-from backend.schemas.user import CurrentUserResponseModel
-from backend.api.deps import authenticate_user, get_db
-from fastapi import APIRouter, Depends, Response, HTTPException, Request
+from backend.src.apps.user.schemas import CurrentUserResponseModel
+from backend.src.operations.deps import authenticate_user, get_db
+from fastapi import APIRouter, Depends, Response
 from datetime import timedelta
 
-from backend.core.config import settings
-from backend.core.security import create_access_token
+from backend.src.core.config import settings
+from backend.src.core.security import create_access_token
 
 # собираем эндпоинты для объеденения
-router = APIRouter()
+router_auth = APIRouter()
 
 
-@router.post(
+@router_auth.post(
     "/login",
     summary="Вход в систему",
     response_model=CurrentUserResponseModel,
@@ -53,7 +49,7 @@ async def login_user(
     return user_in
 
 
-@router.get(
+@router_auth.get(
     "/logout",
     summary="Выход из системы"
 )

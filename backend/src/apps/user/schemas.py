@@ -1,9 +1,8 @@
 from datetime import date
 
-import phonenumbers
-from pydantic import BaseModel, EmailStr, field_validator
+from pydantic import BaseModel, EmailStr
 
-from backend.validators import PhoneNumberUser
+from backend.src.operations.validators import PhoneNumberUser
 
 
 # схемы для ответов и получения данных

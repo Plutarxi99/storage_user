@@ -1,9 +1,8 @@
 from sqlalchemy.orm import Session
 
-from backend.core.security import get_password_hash
-from backend.models import User
-from backend.schemas.admin import PrivateCreateUserModel
-
+from backend.src.core.security import get_password_hash
+from backend.src.operations.models import User
+from backend.src.apps.admin.schemas import PrivateCreateUserModel
 
 
 def get_user_on_id(
@@ -16,7 +15,7 @@ def get_user_on_id(
     :param db: подключении к базе данных
     :return: пользователя из базы данных
     """
-    user = db.query(User).filter(User.id==user_id).first()
+    user = db.query(User).filter(User.id == user_id).first()
     return user
 
 
@@ -47,6 +46,13 @@ def create_user(
     """
     db_obj = User(
         email=obj_in.email,
+        first_name=obj_in.first_name,
+        last_name=obj_in.last_name,
+        other_name=obj_in.other_name,
+        phone=obj_in.phone,
+        birthday=obj_in.birthday,
+        city=obj_in.city,
+        additional_info=obj_in.additional_info,
         password=get_password_hash(obj_in.password),
         is_admin=obj_in.is_admin,
         is_active=obj_in.is_active

@@ -1,5 +1,4 @@
-from backend.schemas.add_responses.base import get_cur_user_resp_200, user_not_auth_401, responses_error, \
-    update_cur_user_resp_200
+from backend.src.exceptions.openapi_responses import user_not_auth_401, responses_error
 
 # Дополнительные ответы для отображения в openapi
 

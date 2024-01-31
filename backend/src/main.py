@@ -2,13 +2,13 @@ from fastapi.encoders import jsonable_encoder
 from fastapi_pagination import add_pagination
 from starlette.responses import JSONResponse
 
-from backend.api.api_v1.api import api_router
-from backend.db.session import engine, SessionLocal
+from backend.src.operations.router import api_router
+from backend.src.database import engine, SessionLocal
 from fastapi import FastAPI, Request, Response
-from backend.db.session import Base
+from backend.src.database import Base
 
-from backend.exceptions import ErrorResponseModel
-from backend.schemas.error import ErrorResponseSchema
+from backend.src.exceptions.model import ErrorResponseModel
+from backend.src.exceptions.schemas import ErrorResponseSchema
 
 Base.metadata.create_all(bind=engine)
 

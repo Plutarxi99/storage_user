@@ -1,12 +1,8 @@
 from datetime import date
 
-import phonenumbers
-from fastapi.exceptions import ResponseValidationError
-from phonenumbers import NumberParseException
-from pydantic import BaseModel, EmailStr, field_validator
+from pydantic import BaseModel, EmailStr
 
-from backend.exceptions import ErrorResponseModel
-from backend.validators import PhoneNumberUser
+from backend.src.operations.validators import PhoneNumberUser
 
 
 # схемы для ответов и получения данных

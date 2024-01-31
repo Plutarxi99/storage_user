@@ -1,16 +1,15 @@
 from typing import Annotated
 
 from fastapi import Depends, HTTPException, Request
-from fastapi.security import OAuth2PasswordBearer
 from jose import jwt, JWTError
 from sqlalchemy.orm import Session
 from starlette import status
-from backend.core.config import settings
-from backend.core.security import verify_password, OAuth2PasswordBearerWithCookie
-from backend.crud.users import get_user
-from backend.exceptions import ErrorResponseModel
-from backend.schemas.token import TokenData
-from backend.schemas.user import UserSchema
+from backend.src.core.config import settings
+from backend.src.core.security import verify_password, OAuth2PasswordBearerWithCookie
+from backend.src.apps.user.crud import get_user
+from backend.src.exceptions.model import ErrorResponseModel
+from backend.src.base.token_schemas import TokenData
+from backend.src.apps.user.schemas import UserSchema
 
 oauth2_scheme = OAuth2PasswordBearerWithCookie()
 

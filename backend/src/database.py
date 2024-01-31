@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-from backend.src.core.config import settings
+from .core.config import settings
 
 # О подключении к базе данных
 # создание ссылки и получение её из настроек приложения

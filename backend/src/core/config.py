@@ -23,10 +23,10 @@ class Settings:
     POSTGRES_USER: str = os.getenv("POSTGRES_USER")
     POSTGRES_PASSWORD: str = os.getenv("POSTGRES_PASSWORD")
     POSTGRES_DB: str = os.getenv("POSTGRES_DB")
-    POSTGRES_TYPE: str = os.getenv("POSTGRES_TYPE")
+    POSTGRES_DRIVER: str = os.getenv("POSTGRES_DRIVER")
 
     # ссылка для подключения к базe данных
-    SQLALCHEMY_DATABASE_URI: str = f"{POSTGRES_TYPE}://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_SERVER}/{POSTGRES_DB}"
+    SQLALCHEMY_DATABASE_URI: str = f"{POSTGRES_DRIVER}://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_SERVER}/{POSTGRES_DB}"
 
 
 settings = Settings()

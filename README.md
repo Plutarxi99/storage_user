@@ -64,7 +64,8 @@
 
 * Заполнить файл .env и приложение готово к запуску;
 
-* Создать первого пользователя в сервеси. Перейти в файл storage_user/backend/app:backend_pre_start.py. И исполнить его:
+* Создать первого пользователя в сервеси. Перейти в файл и исполнить его
+  <pre><code>python3 backend/src/backend_pre_start.py </code></pre>
 
 
 </details>

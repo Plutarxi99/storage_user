@@ -6,13 +6,16 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from src.models import Base
-
-# from src.database import Base
+# добавил для нахождения папки backend, интерпретатор не мог найти модуль
+import sys
+from os.path import abspath, dirname
+sys.path.insert(0, dirname(dirname(dirname(abspath(__file__)))))
+from backend.src.models import Base
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
+
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
@@ -52,7 +55,6 @@ def run_migrations_offline() -> None:
     script output.
 
     """
-    # url = config.get_main_option("sqlalchemy.url")
     url = get_url()
     context.configure(
         url=url,

@@ -12,7 +12,7 @@ from fastapi.exceptions import HTTPException
 
 from starlette.requests import Request
 
-from backend.src.core.config import settings
+from .config import settings
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 

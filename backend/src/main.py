@@ -17,11 +17,15 @@ from alembic import command
 from .core.config import settings
 
 Base.metadata.create_all(bind=engine)
+# строим путь до alembic.ini
 file_alembic = pathlib.Path(__file__).parent.parent.joinpath("alembic.ini")
+# создаем файл конфигураций, который будет импортирован в alembic.ini
 alembic_cfg = Config(file_alembic)
+# устанавливаем нахождения миграции в alembic.ini
 alembic_cfg.set_main_option("script_location", "backend/migrations")
+# устанавливаем ссылку на подключении к базе данных
 alembic_cfg.set_main_option("sqlalchemy.url", f"{settings.SQLALCHEMY_DATABASE_URI}")
-# command.stamp(alembic_cfg, "head")
+# автоматическая установка новой миграций
 command.upgrade(alembic_cfg, "head")
 app = FastAPI()
 app.include_router(api_router)

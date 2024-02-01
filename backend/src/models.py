@@ -1,13 +1,13 @@
-
 from sqlalchemy import Boolean, Column, Integer, String
 
-# from backend.src.database import Base
-from src.database import Base
+from backend.src.database import Base
+# from database import Base
 
 
 # модели для создания таблице в базе данных
 class User(Base):
     __tablename__ = 'users'
+    __table_args__ = {'extend_existing': True}
 
     id = Column(Integer, primary_key=True, index=True)
     first_name = Column(String(45), nullable=True)

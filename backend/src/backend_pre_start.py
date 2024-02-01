@@ -1,8 +1,11 @@
-from src.apps.user.crud import get_user
-from src.core.config import settings
-from src.core.security import get_password_hash
-from src.database import SessionLocal
-from src.models import User
+import sys
+from os.path import abspath, dirname
+sys.path.insert(0, dirname(dirname(dirname(abspath(__file__)))))
+from backend.src.core.config import settings
+from backend.src.core.security import get_password_hash
+from backend.src.database import SessionLocal
+from backend.src.models import User
+from backend.src.apps.user.crud import get_user
 
 
 # TODO: создание в новой базе данных первого пользователя для управления ею

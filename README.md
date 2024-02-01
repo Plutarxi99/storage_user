@@ -56,6 +56,14 @@
 * Создать секретный ключ:
   <pre><code>openssl rand -hex 32</code></pre>
 
+* Удалить все миграции  storage_user/backend/migrations/versions;
+
+* Создать базу данных:
+  <pre><code>psql -U postgres</code></pre>
+  <pre><code>create database storage_user;</code></pre>
+
+* Заполнить файл .env и приложение готово к запуску;
+
 * Создать первого пользователя в сервеси. Перейти в файл storage_user/backend/app:backend_pre_start.py. И исполнить его:
 
 

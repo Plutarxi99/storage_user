@@ -70,5 +70,20 @@
 * Подключено jwt для авторизации пользователя Bearer token
 * Подключено PostgreSQL
 * Обложил тестами все эндпоинты сервиса
+* Добавил миграции с помощью alembic
+* Добавил инструкции для создания docker-compose
+</details>
+
+<details>
+
+<summary>Как запустить приложение в docker?</summary>
+Функционал:
+
+* Выполняем код:
+  <pre><code>docker-compose build</code></pre>
+  <pre><code>docker-compose up</code></pre>
+  
+* Для создания первого пользователя и начать пользоваться сервисом:
+  <pre><code>docker exec app python3 backend/src/backend_pre_start.py</code></pre>
 </details>
 
